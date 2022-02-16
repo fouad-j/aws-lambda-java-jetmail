@@ -1,0 +1,71 @@
+package com.jfouad;
+
+import com.mailjet.client.ClientOptions;
+import com.mailjet.client.MailjetClient;
+import com.mailjet.client.errors.MailjetException;
+import com.mailjet.client.transactional.SendContact;
+import com.mailjet.client.transactional.SendEmailsRequest;
+import com.mailjet.client.transactional.TransactionalEmail;
+import com.mailjet.client.transactional.response.MessageResult;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import static com.mailjet.client.transactional.response.SentMessageStatus.SUCCESS;
+import static java.util.Collections.emptyList;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
+
+public class MailJetSendMail implements SendMail {
+
+    final ClientOptions options = ClientOptions.builder()
+            .apiKey(System.getenv("MAILJET_APIKEY_PUBLIC"))
+            .apiSecretKey(System.getenv("MAILJET_APIKEY_PRIVATE"))
+            .build();
+
+    final MailjetClient client = new MailjetClient(options);
+
+    final String defaultSenderMail = System.getenv("PROJECT_CONTACT_MAIL");
+
+    @Override
+    public boolean send(Mail mail) {
+
+        final TransactionalEmail message = TransactionalEmail
+                .builder()
+                .to(getRecipientsEmail(mail.getTo()))
+                .from(getSenderEmail(mail.getFrom()))
+                .htmlPart(mail.getBody())
+                .subject(mail.getFrom())
+                .build();
+
+        try {
+            MessageResult[] responses = SendEmailsRequest
+                    .builder()
+                    .message(message)
+                    .build()
+                    .sendWith(client)
+                    .getMessages();
+
+            return Arrays.stream(responses)
+                    .map(MessageResult::getStatus)
+                    .filter(Objects::nonNull)
+                    .allMatch(SUCCESS::equals);
+
+        } catch (MailjetException e) {
+            return false;
+        }
+    }
+
+    SendContact getSenderEmail(String senderMail) {
+        return new SendContact(ofNullable(senderMail).orElse(defaultSenderMail));
+    }
+
+    List<SendContact> getRecipientsEmail(List<String> recipients) {
+        return ofNullable(recipients)
+                .orElse(emptyList())
+                .stream()
+                .map(SendContact::new)
+                .collect(toList());
+    }
+}
