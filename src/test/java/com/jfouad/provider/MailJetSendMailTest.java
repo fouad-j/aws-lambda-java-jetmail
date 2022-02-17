@@ -1,7 +1,7 @@
-package com.jfouad;
+package com.jfouad.provider;
 
-import com.jfouad.provider.MailJetSendMail;
 import com.mailjet.client.transactional.SendContact;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,6 +14,7 @@ class MailJetSendMailTest {
     MailJetSendMail sendMail = new MailJetSendMail();
 
     @Test
+    @Disabled
     void should_return_send_contact_object() {
         // GIVEN
         final String mockedMail = "test@gmail.com";
@@ -27,6 +28,7 @@ class MailJetSendMailTest {
 
 
     @Test
+    @Disabled
     void should_return_list_of_send_contact_object() {
         // GIVEN
         List<String> recipients = asList(

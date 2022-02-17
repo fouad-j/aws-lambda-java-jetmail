@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 @Accessors(chain = true)
+@ToString
 public class Mail {
     @Email(message = "From field must be a well-formed email address")
     private String from;
