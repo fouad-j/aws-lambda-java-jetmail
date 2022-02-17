@@ -12,6 +12,8 @@ repositories {
 dependencies {
     implementation group: 'com.mailjet', name: 'mailjet-client', version: '5.2.0'
 
+    implementation 'org.hibernate.validator:hibernate-validator:7.0.1.Final'
+    implementation 'org.glassfish:jakarta.el:4.0.2'
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
