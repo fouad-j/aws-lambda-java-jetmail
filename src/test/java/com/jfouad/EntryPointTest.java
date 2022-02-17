@@ -1,5 +1,6 @@
 package com.jfouad;
 
+import com.jfouad.model.Mail;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 

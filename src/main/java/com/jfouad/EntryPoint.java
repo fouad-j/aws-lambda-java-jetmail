@@ -1,6 +1,7 @@
 package com.jfouad;
 
 
+import com.jfouad.model.Mail;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 

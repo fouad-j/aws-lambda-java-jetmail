@@ -1,4 +1,4 @@
-package com.jfouad;
+package com.jfouad.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;

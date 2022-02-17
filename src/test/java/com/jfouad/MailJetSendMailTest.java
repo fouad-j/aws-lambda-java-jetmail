@@ -1,5 +1,6 @@
 package com.jfouad;
 
+import com.jfouad.provider.MailJetSendMail;
 import com.mailjet.client.transactional.SendContact;
 import org.junit.jupiter.api.Test;
 

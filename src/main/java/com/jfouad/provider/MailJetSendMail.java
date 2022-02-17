@@ -1,5 +1,6 @@
-package com.jfouad;
+package com.jfouad.provider;
 
+import com.jfouad.model.Mail;
 import com.mailjet.client.ClientOptions;
 import com.mailjet.client.MailjetClient;
 import com.mailjet.client.errors.MailjetException;
