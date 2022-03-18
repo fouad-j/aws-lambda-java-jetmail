@@ -11,14 +11,14 @@ import java.util.List;
 
 import static java.lang.String.join;
 
-public class EntryPoint implements RequestHandler<Mail, Boolean> {
+public class EntryPoint implements RequestHandler<Mail, String> {
 
     final SendMail sendMail = new MailJetSendMail();
 
     final ValidationService validationService = new ValidationService();
 
     @Override
-    public Boolean handleRequest(Mail mail, Context context) {
+    public String handleRequest(Mail mail, Context context) {
         context.getLogger().log("Input: " + mail);
 
         final List<String> violations = validationService.validate(mail);
@@ -27,7 +27,9 @@ public class EntryPoint implements RequestHandler<Mail, Boolean> {
             throw new RuntimeException("An error occurred due to invalid request : " + join(";", violations));
         }
 
-        return sendMail.send(mail);
+        return sendMail.send(mail)
+                ? "[OK] Success: mail sent"
+                : "[KO] ERROR: mail not sent";
     }
 
 }

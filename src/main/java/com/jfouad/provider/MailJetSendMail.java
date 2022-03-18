@@ -1,5 +1,7 @@
 package com.jfouad.provider;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+import com.amazonaws.services.lambda.runtime.LambdaRuntime;
 import com.jfouad.model.Mail;
 import com.mailjet.client.ClientOptions;
 import com.mailjet.client.MailjetClient;
@@ -19,6 +21,8 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 
 public class MailJetSendMail implements SendMail {
+
+    final private LambdaLogger logger = LambdaRuntime.getLogger();
 
     final ClientOptions options = ClientOptions.builder()
             .apiKey(System.getenv("MAILJET_APIKEY_PUBLIC"))
@@ -54,6 +58,7 @@ public class MailJetSendMail implements SendMail {
                     .allMatch(SUCCESS::equals);
 
         } catch (MailjetException e) {
+            logger.log("An error occurred during jetmail " + e.getMessage());
             return false;
         }
     }
