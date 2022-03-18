@@ -11,7 +11,7 @@ import java.util.Set;
 import static java.util.Collections.emptyList;
 import static java.util.stream.Collectors.toList;
 
-public class ValidationService {
+public class RequestValidator {
 
     final Validator validator = Validation
             .buildDefaultValidatorFactory()

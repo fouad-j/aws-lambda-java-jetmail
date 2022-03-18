@@ -20,7 +20,6 @@ public class Mail {
     @Email(message = "From field must be a well-formed email address")
     private String from;
 
-    @Size(min = 1)
     @Size(min = 1, message = "Recipients must have at least one address")
     @NotNull(message = "Recipients cannot be null")
     private List<@Email(message = "Recipients field must be a well-formed email address") String> to;

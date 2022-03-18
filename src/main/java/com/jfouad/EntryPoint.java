@@ -5,7 +5,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.jfouad.model.Mail;
 import com.jfouad.provider.MailJetSendMail;
 import com.jfouad.provider.SendMail;
-import com.jfouad.service.ValidationService;
+import com.jfouad.service.RequestValidator;
 
 import java.util.List;
 
@@ -19,13 +19,13 @@ public class EntryPoint implements RequestHandler<Mail, String> {
             System.getenv("PROJECT_CONTACT_MAIL")
     );
 
-    final ValidationService validationService = new ValidationService();
+    final RequestValidator requestValidator = new RequestValidator();
 
     @Override
     public String handleRequest(Mail mail, Context context) {
         context.getLogger().log("Input: " + mail);
 
-        final List<String> violations = validationService.validate(mail);
+        final List<String> violations = requestValidator.validate(mail);
 
         if (!violations.isEmpty()) {
             throw new RuntimeException("An error occurred due to invalid request : " + join(";", violations));
