@@ -24,14 +24,22 @@ public class MailJetSendMail implements SendMail {
 
     final private LambdaLogger logger = LambdaRuntime.getLogger();
 
-    final ClientOptions options = ClientOptions.builder()
-            .apiKey(System.getenv("MAILJET_APIKEY_PUBLIC"))
-            .apiSecretKey(System.getenv("MAILJET_APIKEY_PRIVATE"))
-            .build();
+    final private ClientOptions options;
 
-    final MailjetClient client = new MailjetClient(options);
+    final private MailjetClient client;
 
-    final String defaultSenderMail = System.getenv("PROJECT_CONTACT_MAIL");
+    final private String contactSupportMail;
+
+    public MailJetSendMail(String publicKey, String privateKey, String contactSupportMail) {
+        this.options = ClientOptions.builder()
+                .apiKey(publicKey)
+                .apiSecretKey(privateKey)
+                .build();
+
+        this.client = new MailjetClient(options);;
+
+        this.contactSupportMail = contactSupportMail;
+    }
 
     @Override
     public boolean send(Mail mail) {
@@ -64,7 +72,7 @@ public class MailJetSendMail implements SendMail {
     }
 
     SendContact getSenderEmail(String senderMail) {
-        return new SendContact(ofNullable(senderMail).orElse(defaultSenderMail));
+        return new SendContact(ofNullable(senderMail).orElse(contactSupportMail));
     }
 
     List<SendContact> getRecipientsEmail(List<String> recipients) {

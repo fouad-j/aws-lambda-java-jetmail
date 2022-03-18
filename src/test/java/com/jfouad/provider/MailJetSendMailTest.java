@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class MailJetSendMailTest {
 
-    MailJetSendMail sendMail = new MailJetSendMail();
+    MailJetSendMail sendMail = new MailJetSendMail("publicKey", "privateKey", "support@mail.com");
 
     @Test
     @Disabled

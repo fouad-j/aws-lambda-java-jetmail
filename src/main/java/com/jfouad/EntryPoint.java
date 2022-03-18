@@ -13,7 +13,11 @@ import static java.lang.String.join;
 
 public class EntryPoint implements RequestHandler<Mail, String> {
 
-    final SendMail sendMail = new MailJetSendMail();
+    final SendMail sendMail = new MailJetSendMail(
+            System.getenv("MAILJET_APIKEY_PUBLIC"),
+            System.getenv("MAILJET_APIKEY_PRIVATE"),
+            System.getenv("PROJECT_CONTACT_MAIL")
+    );
 
     final ValidationService validationService = new ValidationService();
 
