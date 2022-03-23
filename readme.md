@@ -1,3 +1,15 @@
+## Description
+Aws lambda that implements JetMail java client to send mails
+
+## Environment variables 
+- MAILJET_APIKEY_PUBLIC
+- MAILJET_APIKEY_PRIVATE
+- PROJECT_CONTACT_MAIL
+
+If you want to use infra-as-code, you have to set these variables in AWS Secrets Manager
+
+## Terraform
+[terraform/main.tf](terraform/main.tf) allow to create aws lambda function with logging
 
 ## Build project
 To build the project run `gradle buildZip`
