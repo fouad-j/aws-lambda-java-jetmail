@@ -11,6 +11,9 @@ If you want to use infra-as-code, you have to set these variables in AWS Secrets
 ## Terraform
 [terraform/main.tf](terraform/main.tf) allow to create aws lambda function with logging
 
+## CICD
+[Github CI](.github/workflows/aws.yml) allow to build and deploy lambda function into two environments "dev" and "prod"
+
 ## Build project
 To build the project run `gradle buildZip`
 
@@ -27,3 +30,10 @@ task buildZip(type: Zip) {
     }
 }
 ```
+
+## Used technology
+- AWS Lambda
+- Terraform
+- Github Actions
+- JAVA 11 (limit due to aws support)
+- JetMail
